@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Gentleman's Cut</title>
+    <title>Login | Gentleman Prime</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -24,29 +24,68 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
-            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
+        .navbar {
+            background: rgba(26, 42, 74, 0.95);
+            padding: 1rem 2rem;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: var(--accent-color);
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-decoration: none;
         }
 
-        .login-register-container {
+        .login-container {
             max-width: 400px;
-            margin: 10% auto;
+            width: 100%;
             padding: 2rem;
             background: rgba(52, 73, 94, 0.9);
             border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 6rem;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs button {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding-bottom: 0.5rem;
+        }
+
+        .tabs button.active {
+            border-bottom: 2px solid var(--accent-color);
         }
 
         .form-box {
@@ -57,106 +96,78 @@
             display: block;
         }
 
-        h2 {
-            text-align: center;
+        .input-box {
             margin-bottom: 1.5rem;
-            color: var(--accent-color);
+            position: relative;
         }
 
-        .input-box {
-            position: relative;
-            margin-bottom: 1.5rem;
+        .input-box label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
         }
 
         .input-box input {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid var(--accent-color);
-            border-radius: 3px;
-            background: var(--primary-color);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-color);
         }
 
-        .input-box input:focus {
-            border-color: var(--accent-color);
-            outline: none;
-        }
-
-        .input-box label {
+        .input-box .toggle-password {
             position: absolute;
+            right: 1rem;
             top: 50%;
-            left: 1rem;
             transform: translateY(-50%);
-            color: var(--text-color);
-            pointer-events: none;
-            transition: 0.3s ease;
-        }
-
-        .input-box input:focus ~ label,
-        .input-box input:valid ~ label {
-            top: -1rem;
-            left: 1rem;
-            font-size: 0.8rem;
-            background: var(--primary-color);
-            padding: 0 0.5rem;
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .remember-forgot label {
-            color: var(--text-color);
-        }
-
-        .remember-forgot a {
+            cursor: pointer;
             color: var(--accent-color);
-            text-decoration: none;
         }
 
-        .terms {
-            margin-bottom: 1.5rem;
-        }
-
-        .terms label {
-            color: var(--text-color);
-        }
-
-        button {
-            display: inline-block;
+        button[type="submit"] {
             width: 100%;
             padding: 1rem;
             background: var(--accent-color);
             color: var(--background-color);
-            text-decoration: none;
-            border-radius: 3px;
-            transition: transform 0.3s ease, background 0.3s ease;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
             border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            background: #b69364;
+        button[type="submit"] .spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--background-color);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
         }
 
-        .sign-up-link {
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-footer {
             text-align: center;
             margin-top: 1rem;
         }
 
-        .sign-up-link p {
-            color: var(--text-color);
-        }
-
-        .sign-up-link a {
+        .form-footer a {
             color: var(--accent-color);
             text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
         }
 
         .error {
@@ -164,78 +175,156 @@
             font-size: 0.8rem;
             margin-top: 0.5rem;
         }
-
-        @media (max-width: 768px) {
-            .login-register-container {
-                margin: 5% auto;
-                padding: 1.5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-        }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">Gentleman Prime</div>
+<div class="navbar">
+    <div class="logo">
+        Gentleman Prime
+    </div>
 </div>
 
-<div class="login-register-container">
-    <div class="form-box login active">
-        <h2>Sign In</h2>
-        <form id="loginForm">
+<div class="login-container">
+    <div class="tabs">
+        <button id="userTab" class="active" onclick="showForm('user')">User Login</button>
+        <button id="staffTab" onclick="showForm('staff')">Staff Login</button>
+        <button id="registerTab" onclick="showForm('register')">Register</button>
+    </div>
+
+    <div class="form-box active" id="userLoginForm">
+        <h2>User Login</h2>
+        <form id="userLogin" action="/loginUser" method="POST" onsubmit="return validateForm(this)">
             <div class="input-box">
-                <input type="email" id="loginEmail" required>
-                <label for="loginEmail">Email</label>
-                <div class="error" id="loginEmailError"></div>
+                <label for="userEmail">Email</label>
+                <input type="email" id="userEmail" name="email" required>
+                <div class="error" id="userEmailError"></div>
             </div>
             <div class="input-box">
-                <input type="password" id="loginPassword" required>
-                <label for="loginPassword">Password</label>
-                <div class="error" id="loginPasswordError"></div>
+                <label for="userPassword">Password</label>
+                <input type="password" id="userPassword" name="password" required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('userPassword')"></i>
+                <div class="error" id="userPasswordError"></div>
             </div>
-            <div class="remember-forgot">
-                <label><input type="checkbox"> Remember me</label>
-                <a href="#">Forgot password?</a>
-            </div>
-            <button type="submit">Sign In</button>
-            <div class="sign-up-link">
-                <p>Don't have an account? <a href="#" id="signUpLink">Sign up</a></p>
+            <button type="submit">
+                Login
+                <div class="spinner" id="userSpinner"></div>
+            </button>
+            <div class="form-footer">
+                <p><a href="#">Forgot Password?</a></p>
+                <p>Back to <a href="index.html">Homepage</a></p>
             </div>
         </form>
     </div>
-    <div class="form-box register">
+
+    <div class="form-box" id="staffLoginForm">
+        <h2>Staff Login</h2>
+        <form id="staffLogin" action="/loginStaff" method="POST" onsubmit="return validateForm(this)">
+            <div class="input-box">
+                <label for="staffEmail">Email</label>
+                <input type="email" id="staffEmail" name="email" required>
+                <div class="error" id="staffEmailError"></div>
+            </div>
+            <div class="input-box">
+                <label for="staffPassword">Password</label>
+                <input type="password" id="staffPassword" name="password" required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('staffPassword')"></i>
+                <div class="error" id="staffPasswordError"></div>
+            </div>
+            <button type="submit">
+                Login
+                <div class="spinner" id="staffSpinner"></div>
+            </button>
+            <div class="form-footer">
+                <p><a href="#">Forgot Password?</a></p>
+                <p>Back to <a href="index.html">Homepage</a></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-box" id="registerForm">
         <h2>Register</h2>
-        <form id="signupForm">
+        <form id="register" action="/register" method="POST" onsubmit="return validateForm(this)">
             <div class="input-box">
-                <input type="text" id="name" required>
-                <label for="name">Name</label>
-                <div class="error" id="nameError"></div>
-            </div>
-            <div class="input-box">
-                <input type="email" id="signupEmail" required>
-                <label for="signupEmail">Email</label>
-                <div class="error" id="signupEmailError"></div>
+                <label for="registerName">Name</label>
+                <input type="text" id="registerName" name="name" required>
+                <div class="error" id="registerNameError"></div>
             </div>
             <div class="input-box">
-                <input type="password" id="signupPassword" required>
-                <label for="signupPassword">Password</label>
-                <div class="error" id="signupPasswordError"></div>
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" name="email" required>
+                <div class="error" id="registerEmailError"></div>
             </div>
-            <div class="terms">
-                <label><input type="checkbox"> I agree to the terms and conditions</label>
+            <div class="input-box">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" name="password" required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('registerPassword')"></i>
+                <div class="error" id="registerPasswordError"></div>
             </div>
-            <button type="submit">Register</button>
-            <div class="sign-up-link">
-                <p>Already have an account? <a href="#" id="signInLink">Sign in</a></p>
+            <button type="submit">
+                Register
+                <div class="spinner" id="registerSpinner"></div>
+            </button>
+            <div class="form-footer">
+                <p>Already have an account? <a href="#" onclick="showForm('user')">Login</a></p>
             </div>
         </form>
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+    function showForm(type) {
+        document.getElementById('userLoginForm').classList.remove('active');
+        document.getElementById('staffLoginForm').classList.remove('active');
+        document.getElementById('registerForm').classList.remove('active');
+        document.getElementById('userTab').classList.remove('active');
+        document.getElementById('staffTab').classList.remove('active');
+        document.getElementById('registerTab').classList.remove('active');
+
+        if (type === 'user') {
+            document.getElementById('userLoginForm').classList.add('active');
+            document.getElementById('userTab').classList.add('active');
+        } else if (type === 'staff') {
+            document.getElementById('staffLoginForm').classList.add('active');
+            document.getElementById('staffTab').classList.add('active');
+        } else {
+            document.getElementById('registerForm').classList.add('active');
+            document.getElementById('registerTab').classList.add('active');
+        }
+    }
+
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+    }
+
+    function validateForm(form) {
+        let isValid = true;
+        const email = form.querySelector('input[type="email"]').value;
+        const password = form.querySelector('input[type="password"]').value;
+
+        if (!email) {
+            form.querySelector('#' + form.id + 'EmailError').textContent = 'Email is required';
+            isValid = false;
+        } else {
+            form.querySelector('#' + form.id + 'EmailError').textContent = '';
+        }
+
+        if (!password) {
+            form.querySelector('#' + form.id + 'PasswordError').textContent = 'Password is required';
+            isValid = false;
+        } else {
+            form.querySelector('#' + form.id + 'PasswordError').textContent = '';
+        }
+
+        if (isValid) {
+            form.querySelector('.spinner').style.display = 'block';
+        }
+
+        return isValid;
+    }
+</script>
+
 </body>
 </html>

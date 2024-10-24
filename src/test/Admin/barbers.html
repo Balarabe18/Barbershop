@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barber Profiles</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #1a2a4a;
+            --accent-color: #c8a97e;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+<div class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold text-center text-gray-900 mb-8">Meet Our Barbers</h1>
+
+    <!-- Barber Profiles -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Barber 1 -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-center">
+                <img class="w-24 h-24 rounded-full" src="/api/placeholder/barber1-photo" alt="Barber 1 photo">
+            </div>
+            <div class="text-center mt-4">
+                <h2 class="text-2xl font-semibold text-gray-900">John Doe</h2>
+                <p class="text-gray-500">10 Years of Experience</p>
+            </div>
+            <div class="mt-4 text-center">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Barber 2 -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-center">
+                <img class="w-24 h-24 rounded-full" src="/api/placeholder/barber2-photo" alt="Barber 2 photo">
+            </div>
+            <div class="text-center mt-4">
+                <h2 class="text-2xl font-semibold text-gray-900">Jane Smith</h2>
+                <p class="text-gray-500">7 Years of Experience</p>
+            </div>
+            <div class="mt-4 text-center">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Profile</button>
+            </div>
+        </div>
+
+        <!-- Barber 3 -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-center">
+                <img class="w-24 h-24 rounded-full" src="/api/placeholder/barber3-photo" alt="Barber 3 photo">
+            </div>
+            <div class="text-center mt-4">
+                <h2 class="text-2xl font-semibold text-gray-900">Sam Taylor</h2>
+                <p class="text-gray-500">5 Years of Experience</p>
+            </div>
+            <div class="mt-4 text-center">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

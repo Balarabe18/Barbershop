@@ -1,7 +1,8 @@
+/* Root Variables */
 :root {
     --primary-color: #1a2a4a;
     --secondary-color: #34495e;
-    --accent-color: #c8a97e;  /* Changed to gold/brass color */
+    --accent-color: #c8a97e; /* Gold/Brass color */
     --background-color: #0a192f;
     --text-color: #e1e8f0;
 }
@@ -19,7 +20,7 @@ body {
     line-height: 1.6;
 }
 
-/* Navbar Styles */
+/* Navbar */
 .navbar {
     background: rgba(26, 42, 74, 0.95);
     padding: 1rem 2rem;
@@ -60,7 +61,7 @@ body {
     color: var(--accent-color);
 }
 
-/* Hero Section Styles */
+/* Hero Section */
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
@@ -96,7 +97,7 @@ body {
     animation-fill-mode: forwards;
 }
 
-/* Features Section Styles */
+/* Features Section */
 .features {
     padding: 5rem 2rem;
     display: grid;
@@ -125,7 +126,7 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Services Section Styles */
+/* Services Section */
 .services {
     background: linear-gradient(45deg, var(--primary-color), var(--background-color));
     padding: 5rem 2rem;
@@ -162,7 +163,7 @@ body {
     font-weight: bold;
 }
 
-/* Testimonials Section Styles */
+/* Testimonials Section */
 .testimonials {
     padding: 5rem 2rem;
     background: var(--primary-color);
@@ -193,7 +194,7 @@ body {
     border: 2px solid var(--accent-color);
 }
 
-/* CTA Section Styles */
+/* CTA Section */
 .cta {
     background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
                 url('../images/barbershop-cta.jpg');
@@ -204,7 +205,7 @@ body {
     padding: 5rem 2rem;
 }
 
-/* Button Styles */
+/* Button */
 .btn {
     display: inline-block;
     padding: 1rem 2rem;
@@ -223,7 +224,7 @@ body {
     background: #b69364;
 }
 
-/* Footer Styles */
+/* Footer */
 footer {
     background: var(--background-color);
     color: var(--text-color);
@@ -257,18 +258,7 @@ footer {
     color: var(--accent-color);
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .nav-links {
-        display: none;
-    }
-}
-
-/* Booking Form Styles */
+/* Booking Form */
 .booking-form {
     padding: 5rem 2rem;
     background: var(--primary-color);
@@ -287,20 +277,7 @@ footer {
     flex-direction: column;
 }
 
-/* Login/Register Form Styles */
-.header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.logo {
-    font-size: 2.5rem;
-    color: var(--accent-color);
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
+/* Login/Register Form */
 .login-register-container {
     max-width: 400px;
     margin: 10% auto;
@@ -353,86 +330,35 @@ h2 {
     transition: 0.3s ease;
 }
 
-.input-box input:focus ~ label,
-.input-box input:valid ~ label {
-    top: -1rem;
-    left: 1rem;
+.input-box input:focus ~ label, .input-box input:valid ~ label {
+    top: -10px;
     font-size: 0.8rem;
-    background: var(--primary-color);
-    padding: 0 0.5rem;
-}
-
-.remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.remember-forgot label {
-    color: var(--text-color);
-}
-
-.remember-forgot a {
     color: var(--accent-color);
-    text-decoration: none;
 }
 
-.terms {
-    margin-bottom: 1.5rem;
-}
-
-.terms label {
-    color: var(--text-color);
-}
-
-button {
-    display: inline-block;
-    width: 100%;
-    padding: 1rem;
+.btn {
     background: var(--accent-color);
     color: var(--background-color);
-    text-decoration: none;
-    border-radius: 3px;
-    transition: transform 0.3s ease, background 0.3s ease;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
     border: none;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-button:hover {
-    transform: translateY(-2px);
+.btn:hover {
     background: #b69364;
 }
 
-.sign-up-link {
-    text-align: center;
-    margin-top: 1rem;
-}
-
-.sign-up-link p {
-    color: var(--text-color);
-}
-
-.sign-up-link a {
-    color: var(--accent-color);
-    text-decoration: none;
-}
-
-.error {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
-}
-
-@media (max-width: 768px) {
-    .login-register-container {
-        margin: 5% auto;
-        padding: 1.5rem;
+/* Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-    h2 {
-        font-size: 2rem;
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
