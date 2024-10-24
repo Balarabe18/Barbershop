@@ -5,7 +5,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Appointment - Gentleman Prime</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-color: #1a2a4a;
+            --secondary-color: #34495e;
+            --accent-color: #c8a97e;
+            --background-color: #0a192f;
+            --text-color: #e1e8f0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: rgba(26, 42, 74, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .booking-form {
+            padding: 8rem 2rem 5rem;
+            background: var(--primary-color);
+            min-height: 100vh;
+        }
+
+        .booking-form h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .booking-form form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(52, 73, 94, 0.2);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(200, 169, 126, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--background-color);
+            border: 1px solid rgba(200, 169, 126, 0.3);
+            border-radius: 3px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(200, 169, 126, 0.2);
+        }
+
+        .error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 3px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: #b69364;
+        }
+
+        footer {
+            background: var(--background-color);
+            color: var(--text-color);
+            padding: 3rem 2rem;
+            border-top: 2px solid var(--accent-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .booking-form {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .booking-form h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar">
@@ -21,28 +208,64 @@
 
 <section class="booking-form" id="booking">
     <h2>Book Your Appointment</h2>
-    <form id="bookingForm">
+    <form id="bookingForm" onsubmit="return validateForm(event)">
         <div class="form-group">
-            <label for="name">Name:</label>
+            <label for="service">Select Service</label>
+            <select id="service" name="service" required>
+                <option value="">Choose a service...</option>
+                <option value="haircut">Classic Haircut</option>
+                <option value="fade">Premium Fade</option>
+                <option value="beard">Beard Trim & Shape</option>
+                <option value="haircut-beard">Haircut & Beard Combo</option>
+                <option value="kids">Kids Haircut (Under 12)</option>
+                <option value="shave">Traditional Hot Shave</option>
+            </select>
+            <span class="error" id="serviceError">Please select a service</span>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
-            <span class="error" id="nameError"></span>
+            <span class="error" id="nameError">Please enter your name</span>
         </div>
+
         <div class="form-group">
-            <label for="email">Email:</label>
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
-            <span class="error" id="emailError"></span>
+            <span class="error" id="emailError">Please enter a valid email address</span>
         </div>
+
         <div class="form-group">
-            <label for="date">Date:</label>
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+            <span class="error" id="phoneError">Please enter a valid 10-digit phone number</span>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Preferred Date</label>
             <input type="date" id="date" name="date" required>
-            <span class="error" id="dateError"></span>
+            <span class="error" id="dateError">Please select a valid date</span>
         </div>
+
         <div class="form-group">
-            <label for="time">Time:</label>
-            <input type="time" id="time" name="time" required>
-            <span class="error" id="timeError"></span>
+            <label for="time">Preferred Time</label>
+            <select id="time" name="time" required>
+                <option value="">Choose a time...</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+            </select>
+            <span class="error" id="timeError">Please select a time</span>
         </div>
-        <button type="submit" class="btn">Book Now</button>
+
+        <button type="submit" class="btn">Book Appointment</button>
     </form>
 </section>
 
@@ -51,7 +274,7 @@
         <div class="footer-section">
             <h3>Location</h3>
             <p>123 Main Street</p>
-            <p>New York, NY 10001</p>
+            <p>Dublin, 23201</p>
             <p>Phone: (555) 123-4567</p>
             <p>Email: info@gentlemansprime.com</p>
         </div>
@@ -73,6 +296,61 @@
     </div>
 </footer>
 
-<script src="Script.js"></script>
+<script>
+    // Set minimum date to today
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+
+    function validateForm(event) {
+        event.preventDefault();
+        let isValid = true;
+        const errors = {
+            service: "Please select a service",
+            name: "Please enter your name",
+            email: "Please enter a valid email address",
+            phone: "Please enter a valid 10-digit phone number",
+            date: "Please select a valid date",
+            time: "Please select a time"
+        };
+
+        // Reset all errors
+        document.querySelectorAll('.error').forEach(error => {
+            error.style.display = 'none';
+        });
+
+        // Validate each field
+        for (const field in errors) {
+            const input = document.getElementById(field);
+            const errorElement = document.getElementById(`${field}Error`);
+
+            if (!input.value) {
+                errorElement.style.display = 'block';
+                isValid = false;
+            } else if (field === 'email' && !isValidEmail(input.value)) {
+                errorElement.style.display = 'block';
+                isValid = false;
+            } else if (field === 'phone' && !isValidPhone(input.value)) {
+                errorElement.style.display = 'block';
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            alert('Thank you for booking with Gentleman Prime! We will confirm your appointment shortly.');
+            document.getElementById('bookingForm').reset();
+        }
+
+        return isValid;
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isValidPhone(phone) {
+        return /^\d{10}$/.test(phone);
+    }
+</script>
 </body>
 </html>
