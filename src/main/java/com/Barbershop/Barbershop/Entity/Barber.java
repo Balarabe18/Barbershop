@@ -1,65 +1,38 @@
 package com.Barbershop.Barbershop.Entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
-@Table(name = "Barber")
+@Data
+@Table(name = "barbers")
 public class Barber {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long barberId;  // Unique identifier for the Barber
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "UserID")  // Foreign key reference to User entity
-    private User user;
+    @Column(nullable = false)
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "ShopID")  // Foreign key reference to Shop entity
-    private Shop shop;
+    @Column
+    private String specialization;
 
-    private String specialties;  // Barber specialties
-    private Integer yearsOfExperience;  // Years of experience
+    @OneToMany(mappedBy = "barber")
+    private List<Appointment> appointments;
 
-    // Getters and Setters
-    public Long getBarberId() {
-        return barberId;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "barber_services",
+            joinColumns = @JoinColumn(name = "barber_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<HairService> services;
 
-    public void setBarberId(Long barberId) {
-        this.barberId = barberId;
-    }
+    @Column(nullable = false)
+    private boolean isAvailable;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Shop getShop() {
-        return shop;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
-
-    public String getSpecialties() {
-        return specialties;
-    }
-
-    public void setSpecialties(String specialties) {
-        this.specialties = specialties;
-    }
-
-    public Integer getYearsOfExperience() {
-        return yearsOfExperience;
-    }
-
-    public void setYearsOfExperience(Integer yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
+    @ElementCollection
+    @CollectionTable(name = "barber_working_hours")
+    private List<WorkingHours> workingHours;
 }
-

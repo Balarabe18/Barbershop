@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gentleman Prime - Premium Barber Salon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
+        /* Existing CSS */
         :root {
             --primary-color: #1a2a4a;
             --secondary-color: #34495e;
-            --accent-color: #c8a97e;  /* Changed to gold/brass color */
+            --accent-color: #c8a97e;
             --background-color: #0a192f;
             --text-color: #e1e8f0;
         }
@@ -27,6 +29,65 @@
             line-height: 1.6;
         }
 
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Enhanced Navbar */
         .navbar {
             background: rgba(26, 42, 74, 0.95);
             padding: 1rem 2rem;
@@ -38,6 +99,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--accent-color);
+            animation: slideInFromTop 0.5s ease-out;
         }
 
         .logo {
@@ -46,6 +108,7 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: slideInFromLeft 0.5s ease-out;
         }
 
         .nav-links {
@@ -60,13 +123,16 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.9rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
+            animation: slideInFromRight 0.5s ease-out;
         }
 
         .nav-links a:hover {
             color: var(--accent-color);
+            transform: translateY(-2px);
         }
 
+        /* Enhanced Hero Section */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
@@ -102,6 +168,7 @@
             animation-fill-mode: forwards;
         }
 
+        /* Enhanced Feature Cards */
         .features {
             padding: 5rem 2rem;
             display: grid;
@@ -113,11 +180,17 @@
         .feature-card {
             text-align: center;
             padding: 2rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
             background: rgba(52, 73, 94, 0.3);
             border-radius: 5px;
             border: 1px solid var(--accent-color);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
         }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
 
         .feature-card:hover {
             transform: translateY(-10px);
@@ -128,30 +201,24 @@
             font-size: 2.5rem;
             color: var(--accent-color);
             margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .services {
-            background: linear-gradient(45deg, var(--primary-color), var(--background-color));
-            padding: 5rem 2rem;
-            text-align: center;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-        }
-
+        /* Enhanced Service Cards */
         .service-card {
             background: rgba(52, 73, 94, 0.2);
             padding: 2rem;
             border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
             border: 1px solid rgba(200, 169, 126, 0.3);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
         }
+
+        .service-card:nth-child(1) { animation-delay: 0.2s; }
+        .service-card:nth-child(2) { animation-delay: 0.4s; }
+        .service-card:nth-child(3) { animation-delay: 0.6s; }
 
         .service-card:hover {
             transform: translateY(-5px);
@@ -164,28 +231,32 @@
             color: var(--accent-color);
             margin: 1rem 0;
             font-weight: bold;
+            transition: transform 0.3s ease;
         }
 
-        .testimonials {
-            padding: 5rem 2rem;
-            background: var(--primary-color);
-            text-align: center;
+        .service-card:hover .price {
+            transform: scale(1.1);
         }
 
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-        }
-
+        /* Enhanced Testimonial Cards */
         .testimonial-card {
             background: rgba(52, 73, 94, 0.2);
             padding: 2rem;
             border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             border: 1px solid rgba(200, 169, 126, 0.3);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.4s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(52, 73, 94, 0.4);
         }
 
         .testimonial-card img {
@@ -194,8 +265,14 @@
             border-radius: 50%;
             margin-bottom: 1rem;
             border: 2px solid var(--accent-color);
+            transition: transform 0.3s ease;
         }
 
+        .testimonial-card:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Enhanced CTA Section */
         .cta {
             background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
                         url('images/barbershop-cta.jpg');
@@ -213,24 +290,21 @@
             color: var(--background-color);
             text-decoration: none;
             border-radius: 3px;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
             text-transform: uppercase;
             font-weight: bold;
             letter-spacing: 1px;
+            animation: pulse 2s infinite;
         }
 
         .btn:hover {
             transform: translateY(-2px);
             background: #b69364;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: none;
         }
 
-        footer {
-            background: var(--background-color);
-            color: var(--text-color);
-            padding: 3rem 2rem;
-            border-top: 2px solid var(--accent-color);
-        }
-
+        /* Enhanced Footer */
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -239,24 +313,29 @@
             margin: 0 auto;
         }
 
-        .footer-section h3 {
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .footer-section {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
         }
+
+        .footer-section:nth-child(1) { animation-delay: 0.2s; }
+        .footer-section:nth-child(2) { animation-delay: 0.4s; }
+        .footer-section:nth-child(3) { animation-delay: 0.6s; }
 
         .social-links a {
             color: var(--text-color);
             margin-right: 1rem;
             font-size: 1.5rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
         }
 
         .social-links a:hover {
             color: var(--accent-color);
+            transform: translateY(-3px);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -269,18 +348,6 @@
             .hero-content {
                 padding: 1rem;
             }
-
-            .features, .services, .testimonials, .cta {
-                padding: 3rem 1rem;
-            }
-
-            .services-grid, .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 480px) {
@@ -291,18 +358,11 @@
             .hero p {
                 font-size: 1rem;
             }
-
-            .feature-card, .service-card, .testimonial-card {
-                padding: 1.5rem;
-            }
-
-            .price {
-                font-size: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
+<!-- Rest of the HTML remains the same -->
 <nav class="navbar">
     <div class="logo">Gentleman Prime</div>
     <div class="nav-links">
@@ -387,7 +447,7 @@
 
 <section class="cta">
     <h2>Ready for a Fresh Look?</h2>
-    <p>Experience premium grooming services at Gentleman's Cut</p>
+    <p>Experience premium grooming services at Gentleman's Prime</p>
     <a href="booking.html" class="btn">Book Your Appointment</a>
 </section>
 
@@ -417,5 +477,32 @@
         </div>
     </div>
 </footer>
+
+<!-- Add Intersection Observer for scroll animations -->
+<script>
+    // Initialize Intersection Observer to handle scroll animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target); // Stop observing once animation is triggered
+            }
+        });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.feature-card, .service-card, .testimonial-card, .footer-section').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        observer.observe(el);
+    });
+</script>
 </body>
 </html>

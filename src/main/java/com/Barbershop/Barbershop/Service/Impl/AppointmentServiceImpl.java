@@ -2,40 +2,36 @@ package com.Barbershop.Barbershop.Service.Impl;
 
 import com.Barbershop.Barbershop.Entity.Appointment;
 import com.Barbershop.Barbershop.Repository.AppointmentRepository;
+import com.Barbershop.Barbershop.Repository.BarberRepository;
+import com.Barbershop.Barbershop.Repository.UserRepository;
 import com.Barbershop.Barbershop.Service.AppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
-
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final UserRepository userRepository;
+    private final BarberRepository barberRepository;
 
     @Override
+    @Transactional
     public Appointment createAppointment(Appointment appointment) {
+        // You can add any validation logic here if needed
         return appointmentRepository.save(appointment);
     }
 
     @Override
-    public Appointment getAppointmentById(Long id) {
-        return appointmentRepository.findById(id).orElse(null);
+    public List<Appointment> getAppointmentsByUserId(Long userId) {
+        return appointmentRepository.findByUserId(userId);
     }
 
     @Override
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
-    }
-
-    @Override
-    public Appointment updateAppointment(Appointment appointment) {
-        return appointmentRepository.save(appointment);
-    }
-
-    @Override
-    public void deleteAppointment(Long id) {
-        appointmentRepository.deleteById(id);
+    public List<Appointment> getAppointmentsByBarberId(Long barberId) {
+        return appointmentRepository.findByBarberId(barberId);
     }
 }

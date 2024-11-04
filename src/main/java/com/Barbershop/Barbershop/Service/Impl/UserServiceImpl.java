@@ -3,56 +3,49 @@ package com.Barbershop.Barbershop.Service.Impl;
 import com.Barbershop.Barbershop.Entity.User;
 import com.Barbershop.Barbershop.Repository.UserRepository;
 import com.Barbershop.Barbershop.Service.UserService;
-import com.Barbershop.Barbershop.Entity.User.UserType;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public User createUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email already registered"); // Change to RuntimeException if you don't want custom exceptions
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found")); // Change to RuntimeException if you don't want custom exceptions
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public List<User> getUsersByType(UserType userType) {
-        return userRepository.findByUserType(userType);
-    }
-
-    @Override
+    @Transactional
     public User updateUser(User user) {
-        return userRepository.save(user);
+        User existingUser = getUserById(user.getId());
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        if (user.getPassword() != null) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        return userRepository.save(existingUser);
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
     }
 }
