@@ -25,7 +25,8 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserRoleAuthorizationInterceptor role;
+    @Column(nullable = false)
+    private UserRole role;
 
     @OneToMany(mappedBy = "user")
     private List<Appointment> appointments;
@@ -36,6 +37,11 @@ public class User {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+    public enum UserRole {
+        ROLE_USER,
+        ROLE_ADMIN,
+        ROLE_BARBER
     }
 }
 

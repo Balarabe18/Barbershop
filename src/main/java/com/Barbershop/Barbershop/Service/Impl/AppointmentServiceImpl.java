@@ -27,11 +27,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<Appointment> getAppointmentsByUserId(Long userId) {
-        return appointmentRepository.findByUserId(userId);
+        return appointmentRepository.findByUser_Id(userId);
     }
 
     @Override
     public List<Appointment> getAppointmentsByBarberId(Long barberId) {
-        return appointmentRepository.findByBarberId(barberId);
+        return appointmentRepository.findByBarber_Id(barberId);
     }
 }

@@ -18,7 +18,7 @@ public class Barber {
     @Column
     private String specialization;
 
-    @OneToMany(mappedBy = "barber")
+    @OneToMany(mappedBy = "barber", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
     @ManyToMany
@@ -32,7 +32,4 @@ public class Barber {
     @Column(nullable = false)
     private boolean isAvailable;
 
-    @ElementCollection
-    @CollectionTable(name = "barber_working_hours")
-    private List<WorkingHours> workingHours;
 }
